@@ -9,8 +9,8 @@ canvas {
 #questionDiv {
     font-size: 38px;
     min-height: 42px;
-    width: 300px;
-    border: solid red 1px;
+    width: 250px;
+    /* border: solid red 1px; */
     text-align: right;
 }
 
@@ -18,5 +18,12 @@ canvas {
     font-size: 38px;
     min-height: 42px;
     width: 120px;
+    margin-left: 10px;
+}
+
+#answerBtn {
+    font-size: 38px;
+    min-height: 42px;
+    width: 42px;
     margin-left: 10px;
 }

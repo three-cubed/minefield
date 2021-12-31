@@ -39,26 +39,37 @@ function setUpBoard () {
         }
     }
 
-    drawWithOffset(tiles);
+    drawTiles(tiles);
     addBufferParag();
 
 }
 
-function drawWithOffset(tiles) {
+function drawTiles(tiles) {
     for (let tile of tiles) {
-        // The tile itself
-        context.fillStyle = tile.colour;
-        context.fillRect(tile.x, tile.y, tile.dimension, tile.dimension);
-        // The border of the tile
-        context.strokeStyle = tile.borderColour;
-        context.lineWidth = sqrBorderWidth;
-        context.strokeRect(tile.x, tile.y, tile.dimension, tile.dimension);
-        // The text on the tile
-        context.fillStyle = "black";
-        context.textAlign = "center";
-        let textOffset = tile.dimension / 2;
-        context.fillText(`${tile.index})   ${tile.calc[0].replaceAll('*', 'x').replaceAll('/', '÷')}`, tile.x + textOffset, tile.y + textOffset);
+        let questionText = `${tile.calc[0].replaceAll('*', 'x').replaceAll('/', '÷')}`;
+        let questionTextSize = dimensionsOfSquaresInPixels * 0.2;
+        drawTile(tile, questionText, questionTextSize);
     }
+}
+
+function drawTile(tile, text, fontSize = null) {
+    // The tile itself
+    context.fillStyle = tile.colour;
+    context.fillRect(tile.x, tile.y, tile.dimension, tile.dimension);
+    // The border of the tile
+    context.strokeStyle = tile.borderColour;
+    context.lineWidth = sqrBorderWidth;
+    context.strokeRect(tile.x, tile.y, tile.dimension, tile.dimension);
+    // The text on the tile
+    let textOffsetX = tile.dimension / 2;
+    let textOffsetY = tile.dimension / 2;
+    if (fontSize !== null) {
+        context.font = `${fontSize}px Arial`;
+        textOffsetY += fontSize / 2.5;
+    }
+    context.fillStyle = 'black';
+    context.textAlign = 'center';
+    context.fillText(text, tile.x + textOffsetX, tile.y + textOffsetY);
 }
 
 setUpBoard()

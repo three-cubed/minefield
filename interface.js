@@ -1,7 +1,9 @@
 let minefieldCanvas = document.getElementById('minefieldCanvas');
 minefieldCanvas.addEventListener('click', clickFunc);
 let tileBorderHighlightColour = 'yellow';
+let tileWrongColour = 'red';
 let currentAnswer = null;
+let currentTile;
 
 let questionDiv, answerInputBox;
 if (document.readyState === 'loading') {
@@ -16,7 +18,12 @@ function doWhenLoaded() {
     questionForm = document.getElementById('questionForm')
     questionDiv = document.getElementById('questionDiv');
     answerInputBox = document.getElementById('answerInputBox');
-    answerInputBox.addEventListener('keyup', checkAnswer);
+    // answerInputBox.addEventListener('keyup', checkAnswer);
+    answerBtn = document.getElementById('answerBtn');
+    answerBtn.addEventListener('click', function(event){
+        event.preventDefault();
+        checkAnswer();
+    });
 }
 
 function clickFunc(event) {
@@ -31,9 +38,9 @@ function clickFunc(event) {
 
     // console.log('Co-ords within canvas: x:' + x + ' y:' + y);
 
-    const tileClicked = getIdentity({'x': x, 'y': y});
-    questionDiv.innerText = tileClicked.calc[0].replaceAll('*', 'x').replaceAll('/', '÷');
-    currentAnswer = tileClicked.calc[1];
+    currentTile = getIdentity({'x': x, 'y': y});
+    questionDiv.innerText = currentTile.calc[0].replaceAll('*', 'x').replaceAll('/', '÷');
+    currentAnswer = currentTile.calc[1];
     answerInputBox.focus();
 }
 
@@ -86,10 +93,19 @@ function checkAnswer() {
     if (currentAnswer === null) return;
     console.log(`checking for answer ${currentAnswer}`);
     if (answerInputBox.value == currentAnswer) { // needs to be ==, not ===
-        console.log('correct');
+        // console.log('correct');
         // questionDiv.innerText = `✔ ${questionDiv.innerText}`;
         answerInputBox.value += '  ✔' ;
         currentAnswer = null;
         answerInputBox.setAttribute('disabled', 'disabled');
+        currentTile.borderColour = tilesColour;
+        drawTile(currentTile, '', 40);
+    } else {
+        // console.log('correct');
+        answerInputBox.value += '  ✘' ;
+        currentAnswer = null;
+        answerInputBox.setAttribute('disabled', 'disabled');
+        currentTile.borderColour = tileWrongColour;
+        drawTile(currentTile, '🔥', 40);
     }
 }
