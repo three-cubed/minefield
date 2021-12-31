@@ -1,0 +1,22 @@
+canvas {
+    opacity: 0.8;
+}
+
+#questionForm {
+    display: flex;
+}
+
+#questionDiv {
+    font-size: 38px;
+    min-height: 42px;
+    width: 300px;
+    border: solid red 1px;
+    text-align: right;
+}
+
+#answerInputBox {
+    font-size: 38px;
+    min-height: 42px;
+    width: 120px;
+    margin-left: 10px;
+}
