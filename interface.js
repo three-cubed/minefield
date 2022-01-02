@@ -27,9 +27,6 @@ function doWhenLoaded() {
 }
 
 function clickFunc(event) {
-    questionForm.reset();
-    answerInputBox.removeAttribute('disabled', 'disabled');
-
     // First getting the co-ordinates on the window.
     var x = event.x;
     var y = event.y;
@@ -46,8 +43,14 @@ function clickFunc(event) {
     // console.log('x:' + x + ' y:' + y);
 
     currentTile = getIdentity({'x': x, 'y': y});
+
     if (currentTile === null) return;
-    if (currentTile.borderColour === 'red') return;
+    if (currentTile.borderColour === tileWrongColour || currentTile.borderColour === tilesColour) return;
+    if (hasValidNeighbours(currentTile) === false) return;
+
+    questionForm.reset();
+    answerInputBox.removeAttribute('disabled', 'disabled');
+
     setTileToBeHighlighted(currentTile);
     updateTiles();
     colourInBorder(currentTile);
@@ -76,6 +79,27 @@ function getIdentity(click) {
     }
 }
 
+function hasValidNeighbours(currentTile) {
+    if (currentTile.index >= numOfSqrs - heightOfBoardInSquares) return true;
+    // i.e. bottom row to be considered connected to validity by default.;
+    let hasValidNeighbours = false;
+    // console.log('CHECKING WHETHER HAS VALID NEIGHBOURS ' + currentTile.index);
+    for (let tile of tiles) {
+        // console.log('Considering ' + tile.index + ' with colour: ' + tile.borderColour);
+        // console.log("tile.borderColour === tilesColour " + (tile.borderColour === tilesColour));
+        // console.log('tile.neighbours ' + tile.neighbours);
+        // console.log("tile.neighbours.includes(currentTile.index) " + tile.neighbours.includes(currentTile.index));
+        if (
+            tile.borderColour === tilesColour
+            && tile.neighbours.includes(currentTile.index)
+            ) {
+            hasValidNeighbours = true;
+        }
+    }
+    // console.log('FOR HAS VALID NEIGHBOURS, ' + currentTile.index + ' RETURNING ' + hasValidNeighbours)
+    return hasValidNeighbours;
+}
+
 function setTileToBeHighlighted(tileToHighlight) {
     // console.log('for tile' + tile.index + ', tile.highlighted go from ' + tile.highlighted + ' to ' + !tile.highlighted);
     for (let tile of tiles) {
@@ -96,7 +120,7 @@ function colourInBorder(tile, colourToUse = tile.borderColour) {
 
 function checkAnswer() {
     if (currentAnswer === null) return;
-    console.log(`checking for answer ${currentAnswer}`);
+    // console.log(`checking for answer ${currentAnswer}`);
     if (answerInputBox.value == currentAnswer) { // needs to be ==, not ===
         // console.log('correct');
         // questionDiv.innerText = `✔ ${questionDiv.innerText}`;
@@ -112,10 +136,17 @@ function checkAnswer() {
         currentTile.borderColour = tileWrongColour;
     }
     updateTiles();
+    doIfComplete(currentTile);
 }
 
 function updateTiles() {
-    drawTiles('black');
-    drawTiles('green', '');
-    drawTiles('red', '🔥', '40');
+    drawTiles(tileBorderColour); // Tiles still normal.
+    drawTiles(tilesColour, ''); // Tiles cleared.
+    drawTiles(tileWrongColour, '🔥', '40'); // Tiles got wrong.
+}
+
+function doIfComplete(currentTile) {
+    if (currentTile.index < heightOfBoardInSquares) {
+        alert('Well done! You\'ve cleared a path throught the minefield!');
+    }
 }

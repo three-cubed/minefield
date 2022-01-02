@@ -7,12 +7,12 @@ let dimensionsOfSquaresInPixels = 90; // 90 seems good for development.
 let halfSqr = dimensionsOfSquaresInPixels / 2;
 let sqrBorderWidth = 4;
 let heightOfBoardInPixels = heightOfBoardInSquares * dimensionsOfSquaresInPixels;
+let numOfSqrs = Math.pow(heightOfBoardInSquares, 2);
 
 function setUpBoard () {
 
     let x = sqrBorderWidth / 2;
     let y = sqrBorderWidth / 2;
-    let numOfSqrs = Math.pow(heightOfBoardInSquares, 2);
 
     let rowIsEvenNum = false;
 
@@ -30,7 +30,7 @@ function setUpBoard () {
         newTile.rowIsEvenNum = rowIsEvenNum;
         findNeighbours(newTile);
         x = x + dimensionsOfSquaresInPixels;
-        if (x >= heightOfBoardInPixels - sqrBorderWidth / 2) {
+        if (x > heightOfBoardInPixels - sqrBorderWidth / 2) {
             // console.log(`at tile no. ${i}, x >= heightOfBoardInPixels - sqrBorderWidth / 2`);
             rowIsEvenNum = !rowIsEvenNum;
             x = sqrBorderWidth / 2;
@@ -39,8 +39,7 @@ function setUpBoard () {
         }
     }
 
-    console.log('tiles[0].neighbours');
-    console.log(tiles[0].neighbours);
+    // console.log('tiles[0].neighbours' + tiles[0].neighbours);
 
     drawTiles();
     addBufferParag();
@@ -103,47 +102,51 @@ function addBufferParag() {
 }
 
 function findNeighbours(tile) {
+    // DANGER!
+    // Any change to the numbering system will mess this function up and variables outside it,
+    // for example switching to starting at one instead of zero.
+    // Seriously it will be so tiresome.
     tile.neighbours = [];
     const index = tile.index;
     const remainder = index % heightOfBoardInSquares;
-    // check above
-    if (index < heightOfBoardInSquares +1) {
+    // Check above
+    if (index < heightOfBoardInSquares) {
         tile.neighbours.push('none above');
-        // tile.colour = 'green';
+        // tile.colour = 'purple';
     } else {
         tile.neighbours.unshift(index - heightOfBoardInSquares);
-        if (remainder !== 1 && tile.rowIsEvenNum === false) {
+        if (remainder !== 0 && tile.rowIsEvenNum === false) {
             tile.neighbours.unshift(index - heightOfBoardInSquares - 1)
         }
-        if (remainder !== 0 && tile.rowIsEvenNum === true) {
+        if (remainder !== heightOfBoardInSquares - 1 && tile.rowIsEvenNum === true) {
             tile.neighbours.unshift(index - heightOfBoardInSquares + 1)
         }
     }
-    // check left
-    if (remainder === 1) {
+    // Check left
+    if (remainder === 0) {
         tile.neighbours.push('none to left');
         // tile.colour = 'yellow';
     } else {
         tile.neighbours.unshift(index - 1);
     }
-    // check right
-    if (remainder === 0) {
+    // Check right
+    if (remainder === heightOfBoardInSquares - 1) {
         tile.neighbours.push('none to right');
         // tile.colour = 'gold';
     } else {
         tile.neighbours.unshift(index + 1);
     }
-    // check below
-    if (index > (Math.pow(heightOfBoardInSquares, 2) - heightOfBoardInSquares)) {
+    // Check below
+    if (index >= (Math.pow(heightOfBoardInSquares, 2) - heightOfBoardInSquares)) {
         tile.neighbours.push('none below');
-        // tile.colour = 'green';
+        // tile.colour = 'antiquewhite';
     } else {
         tile.neighbours.unshift(index + heightOfBoardInSquares);
-        if (remainder !== 1 && tile.rowIsEvenNum === false) {
-            tile.neighbours.unshift(index + heightOfBoardInSquares - 1)
-        }
-        if (remainder !== 0 && tile.rowIsEvenNum === true) {
+        if (remainder !== heightOfBoardInSquares - 1 && tile.rowIsEvenNum === true) {
             tile.neighbours.unshift(index + heightOfBoardInSquares + 1)
+        }
+        if (remainder !== 0 && tile.rowIsEvenNum === false) {
+            tile.neighbours.unshift(index + heightOfBoardInSquares - 1)
         }
     }
     // console.log(index, remainder, tile.neighbours);
