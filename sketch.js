@@ -1,15 +1,22 @@
 let body = document.getElementsByTagName('body')[0];
+let appendCanvasHere, levelMessage;
+let level = 1;
+let startMessage = 'Let\'s go!';
 
 let tiles = [];
 
-let heightOfBoardInSquares = 6; // 6 seems good for development; maybe use 8 for deployment?
+let heightOfBoardInSquares = 4; // 6 seems good for development; maybe use 8 for deployment?
+let widthOfBoardInSquares = 4; // 6 seems good for development; maybe use 8 for deployment?
 let dimensionsOfSquaresInPixels = 90; // 90 seems good for development.
-let halfSqr = dimensionsOfSquaresInPixels / 2;
-let sqrBorderWidth = 4;
-let heightOfBoardInPixels = heightOfBoardInSquares * dimensionsOfSquaresInPixels;
-let numOfSqrs = Math.pow(heightOfBoardInSquares, 2);
+let sqrBorderWidth = 3;
 
-function setUpBoard () {
+let halfSqr = dimensionsOfSquaresInPixels / 2;
+let heightOfBoardInPixels = heightOfBoardInSquares * dimensionsOfSquaresInPixels;
+let widthOfBoardInPixels = widthOfBoardInSquares * dimensionsOfSquaresInPixels;
+
+function setUpBoard() {
+    levelMessage = document.getElementById('levelMessage');
+    levelMessage.innerText = `Level ${level}`;
 
     let x = sqrBorderWidth / 2;
     let y = sqrBorderWidth / 2;
@@ -18,19 +25,20 @@ function setUpBoard () {
 
     let minefieldCanvas = document.createElement('canvas');
     minefieldCanvas.setAttribute('id', 'minefieldCanvas');
-    body.appendChild(minefieldCanvas);
-    minefieldCanvas.setAttribute('width', heightOfBoardInPixels + halfSqr + sqrBorderWidth);
+    appendCanvasHere = document.getElementById('appendCanvasHere');
+    appendCanvasHere.appendChild(minefieldCanvas);
+    minefieldCanvas.setAttribute('width', widthOfBoardInPixels + halfSqr + sqrBorderWidth);
     minefieldCanvas.setAttribute('height', heightOfBoardInPixels + sqrBorderWidth);
     context = minefieldCanvas.getContext('2d'); // context is already 'declared' by canvas.
 
-    for (let i = 0; i < numOfSqrs; i++) {
+    for (let i = 0; i < (heightOfBoardInSquares * widthOfBoardInSquares); i++) {
         let newTile = new Tile(x, y, dimensionsOfSquaresInPixels, i);
         newTile.calc = generateCalc(2, 12, generateOperation(), 2, 12); // Giving the tile a question
         tiles.push(newTile);
         newTile.rowIsEvenNum = rowIsEvenNum;
         findNeighbours(newTile);
         x = x + dimensionsOfSquaresInPixels;
-        if (x > heightOfBoardInPixels - sqrBorderWidth / 2) {
+        if (x > widthOfBoardInPixels - sqrBorderWidth / 2) {
             // console.log(`at tile no. ${i}, x >= heightOfBoardInPixels - sqrBorderWidth / 2`);
             rowIsEvenNum = !rowIsEvenNum;
             x = sqrBorderWidth / 2;
@@ -55,6 +63,7 @@ function drawTiles(borderColourToDraw = '.*', text = null, fontSize = dimensions
         if (regExp.test(tile.borderColour) === true) {
             // if (text === null) currText = `${tile.calc[0].replaceAll('*', 'x').replaceAll('/', '÷')}`;
             if (text === null) currText = `${tile.calc[0].replaceAll('*', 'x')}`;
+            // if (text === null) currText = `${tile.index}; ${tile.neighbours}`; fontSize = 11; // For testing!
             drawTile(tile, currText, fontSize);
         }
     }
@@ -85,15 +94,13 @@ function overrideBorderTopAndBottom() {
     context.lineWidth = sqrBorderWidth;
     context.beginPath();
     context.moveTo(0, sqrBorderWidth / 2);
-    context.lineTo(heightOfBoardInPixels + sqrBorderWidth, sqrBorderWidth / 2);
+    context.lineTo(widthOfBoardInPixels + sqrBorderWidth, sqrBorderWidth / 2);
     let bottomBorderOffset = 0;
     if (heightOfBoardInSquares % 2 === 0) bottomBorderOffset = halfSqr;
     context.moveTo(bottomBorderOffset, heightOfBoardInPixels + sqrBorderWidth / 2);
-    context.lineTo(heightOfBoardInPixels + sqrBorderWidth + bottomBorderOffset, heightOfBoardInPixels + sqrBorderWidth / 2);
+    context.lineTo(widthOfBoardInPixels + sqrBorderWidth + bottomBorderOffset, heightOfBoardInPixels + sqrBorderWidth / 2);
     context.stroke();
 }
-
-setUpBoard()
 
 function addBufferParag() {
     let parag = document.createElement('p');
@@ -103,23 +110,23 @@ function addBufferParag() {
 
 function findNeighbours(tile) {
     // DANGER!
-    // Any change to the numbering system will mess this function up and variables outside it,
+    // Any change to the tile numbering system will mess this function up and variables outside it,
     // for example switching to starting at one instead of zero.
     // Seriously it will be so tiresome.
     tile.neighbours = [];
     const index = tile.index;
-    const remainder = index % heightOfBoardInSquares;
+    const remainder = index % widthOfBoardInSquares;
     // Check above
-    if (index < heightOfBoardInSquares) {
+    if (index < widthOfBoardInSquares) {
         tile.neighbours.push('none above');
         // tile.colour = 'purple';
     } else {
-        tile.neighbours.unshift(index - heightOfBoardInSquares);
+        tile.neighbours.unshift(index - widthOfBoardInSquares);
         if (remainder !== 0 && tile.rowIsEvenNum === false) {
-            tile.neighbours.unshift(index - heightOfBoardInSquares - 1)
+            tile.neighbours.unshift(index - widthOfBoardInSquares - 1)
         }
-        if (remainder !== heightOfBoardInSquares - 1 && tile.rowIsEvenNum === true) {
-            tile.neighbours.unshift(index - heightOfBoardInSquares + 1)
+        if (remainder !== widthOfBoardInSquares - 1 && tile.rowIsEvenNum === true) {
+            tile.neighbours.unshift(index - widthOfBoardInSquares + 1)
         }
     }
     // Check left
@@ -130,24 +137,26 @@ function findNeighbours(tile) {
         tile.neighbours.unshift(index - 1);
     }
     // Check right
-    if (remainder === heightOfBoardInSquares - 1) {
+    if (remainder === widthOfBoardInSquares - 1) {
         tile.neighbours.push('none to right');
         // tile.colour = 'gold';
     } else {
         tile.neighbours.unshift(index + 1);
     }
     // Check below
-    if (index >= (Math.pow(heightOfBoardInSquares, 2) - heightOfBoardInSquares)) {
+    if (index >= ((heightOfBoardInSquares * widthOfBoardInSquares) - widthOfBoardInSquares)) {
         tile.neighbours.push('none below');
         // tile.colour = 'antiquewhite';
     } else {
-        tile.neighbours.unshift(index + heightOfBoardInSquares);
-        if (remainder !== heightOfBoardInSquares - 1 && tile.rowIsEvenNum === true) {
-            tile.neighbours.unshift(index + heightOfBoardInSquares + 1)
+        tile.neighbours.unshift(index + widthOfBoardInSquares);
+        if (remainder !== widthOfBoardInSquares - 1 && tile.rowIsEvenNum === true) {
+            tile.neighbours.unshift(index + widthOfBoardInSquares + 1)
         }
         if (remainder !== 0 && tile.rowIsEvenNum === false) {
-            tile.neighbours.unshift(index + heightOfBoardInSquares - 1)
+            tile.neighbours.unshift(index + widthOfBoardInSquares - 1)
         }
     }
     // console.log(index, remainder, tile.neighbours);
 }
+
+setUpBoard();

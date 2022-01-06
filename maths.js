@@ -30,15 +30,14 @@ function generateCalc(min_X, max_X, operation, min_Y, max_Y) {
 }
 
 function generateOperation() {
-    let randomNum = generateNumber(1, 7);
+    let randomNum = generateNumber(1, 4);
     let randomOperation = '+';
-    if (randomNum <= 2) {
+    if (randomNum === 2) {
         randomOperation = '-';
-    } else if (randomNum <= 4) {
+    } else if (randomNum === 3) {
         randomOperation = '*';
-    } else if (randomNum === 5) {
+    } else if (randomNum === 4) {
         randomOperation = '/';
     }
-    // i.e. 2/7 chance of each of plus, minus, times; 1/7 chance of divide.
     return randomOperation;
 }

@@ -27,3 +27,9 @@ canvas {
     width: 42px;
     margin-left: 10px;
 }
+
+#toNextBtn {
+    opacity: 0.5;
+    height: 40px;
+    width: 90px;
+}

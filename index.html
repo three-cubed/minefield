@@ -7,18 +7,28 @@
     <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
+
     <h3>Welcome to the minefield!</h3>
+    <h4 id='levelMessage'></h4>
+
+    <div id='appendCanvasHere'></div>
+
+    <form id='questionForm'>
+        <div id='questionDiv'></div>
+        <input id='answerInputBox'>
+        <input type="submit" id='answerBtn' value='?'>
+    </form>
+
+    <div id='toNextScreen'>
+        <button id='toNextBtn' type="button">
+            Next
+        </button>
+    </div>
 
     <script src = 'maths.js'></script>
     <script src = 'Tile.js'></script>
     <script src = 'sketch.js'></script>
     <script src = 'interface.js'></script>
-
-    <form id='questionForm'>
-        <div id='questionDiv'>Let's go!</div>
-        <input id='answerInputBox'>
-        <input type="submit" id='answerBtn' value='?'>
-    </form>
 
 </body>
 </html>
