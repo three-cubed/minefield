@@ -5,8 +5,8 @@ let startMessage = 'Let\'s go!';
 
 let tiles = [];
 
-let heightOfBoardInSquares = 4; // 6 seems good for development; maybe use 8 for deployment?
-let widthOfBoardInSquares = 4; // 6 seems good for development; maybe use 8 for deployment?
+let heightOfBoardInSquares = 3; // 6 seems good for development; maybe use 8 for deployment?
+let widthOfBoardInSquares = 5; // 6 seems good for development; maybe use 8 for deployment?
 let dimensionsOfSquaresInPixels = 90; // 90 seems good for development.
 let sqrBorderWidth = 3;
 
@@ -33,7 +33,7 @@ function setUpBoard() {
 
     for (let i = 0; i < (heightOfBoardInSquares * widthOfBoardInSquares); i++) {
         let newTile = new Tile(x, y, dimensionsOfSquaresInPixels, i);
-        newTile.calc = generateCalc(2, 12, generateOperation(), 2, 12); // Giving the tile a question
+        newTile.calc = generateCalc(level, generateOperation()); // Giving the tile a question
         tiles.push(newTile);
         newTile.rowIsEvenNum = rowIsEvenNum;
         findNeighbours(newTile);

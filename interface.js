@@ -5,6 +5,20 @@ let previousTile = null;
 let currentAnswer = null;
 let questionDiv, answerInputBox, toNextBtn;
 
+let emoticonList = [
+    '&#128512;',
+    '&#128513;',
+    '&#128515;',
+    '&#128522;',
+    '&#128525;',
+    '&#128540;',
+    '&#128541;',
+    '&#128579;',
+    '&#129322;',
+    '&#129392;',
+    '&#129321;'
+]
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         doWhenLoaded();
@@ -65,7 +79,7 @@ function moveTileFocus(tileToFocusOn) {
     if (
         tileToFocusOn === null ||
         tileToFocusOn.borderColour === tileWrongColour ||
-        hasValidNeighbours(tileToFocusOn) === false
+        hasValidNeighbour(tileToFocusOn) === false
     ) {
         return;
     }
@@ -109,11 +123,10 @@ function getIdentity(click) {
     }
 }
 
-function hasValidNeighbours(currentTile) {
+function hasValidNeighbour(currentTile) {
     if (currentTile.index >= tiles.length - widthOfBoardInSquares) return true;
-    // i.e. bottom row to be considered connected to validity by default.;
-    let hasValidNeighbours = false;
-    // console.log('CHECKING WHETHER HAS VALID NEIGHBOURS ' + currentTile.index);
+    // i.e. bottom row to be considered connected to validity by default.
+    let hasValidNeighbour = false;
     for (let tile of tiles) {
         // console.log('Considering ' + tile.index + ' with colour: ' + tile.borderColour);
         // console.log("tile.borderColour === tilesColour " + (tile.borderColour === tilesColour));
@@ -123,11 +136,11 @@ function hasValidNeighbours(currentTile) {
             tile.borderColour === tilesColour
             && tile.neighbours.includes(currentTile.index)
             ) {
-            hasValidNeighbours = true;
+            hasValidNeighbour = true;
         }
     }
-    // console.log('FOR HAS VALID NEIGHBOURS, ' + currentTile.index + ' RETURNING ' + hasValidNeighbours)
-    return hasValidNeighbours;
+    // console.log('FOR HAS VALID NEIGHBOURS, ' + currentTile.index + ' RETURNING ' + hasValidNeighbour)
+    return hasValidNeighbour;
 }
 
 function setTileToBeHighlighted(tileToHighlight) {
@@ -180,10 +193,13 @@ function updateTiles() {
 
 function doIfComplete(currentTile) {
     if (currentTile.index < widthOfBoardInSquares) {
-        alert('Well done! You\'ve cleared a path through the minefield!');
+        // alert('Well done! You\'ve cleared a path through the minefield!');
+        toNextBtn.style.opacity = '1';
+        toNextBtn.addEventListener('click', clickToNext);
+        // for (let i = 0; i < emoticonList.length; i++){
+        rewardBox.innerHTML += '<span>&ensp;' + emoticonList[generateNumber(0, emoticonList.length - 1)] + '&ensp;</span>';
+        // }
     }
-    toNextBtn.style.opacity = '1';
-    toNextBtn.addEventListener('click', clickToNext);
 }
 
 function clickToNext() {
@@ -199,6 +215,6 @@ function clickToNext() {
     doWhenLoaded();
     answerInputBox.value = '';
 
-    toNextBtn.style.opacity = '0.5';
+    toNextBtn.style.opacity = '0.05';
     toNextBtn.removeEventListener('click', clickToNext);
 }

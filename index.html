@@ -9,21 +9,42 @@
 <body>
 
     <h3>Welcome to the minefield!</h3>
-    <h4 id='levelMessage'></h4>
 
-    <div id='appendCanvasHere'></div>
+    <div id='bothsides'>
 
-    <form id='questionForm'>
-        <div id='questionDiv'></div>
-        <input id='answerInputBox'>
-        <input type="submit" id='answerBtn' value='?'>
-    </form>
+        <div id='leftside'>
 
-    <div id='toNextScreen'>
-        <button id='toNextBtn' type="button">
-            Next
-        </button>
+            <div id='appendCanvasHere'></div>
+
+            <form id='questionForm'>
+                <div id='questionDiv'></div>
+                <input id='answerInputBox'>
+                <input type="submit" id='answerBtn' value='?'>
+            </form>
+
+        </div>
+
+        <div id='rightside'>
+
+            <div class='flex'>
+
+                <h4 id='levelMessage'></h4>
+                <div id='toNextScreen'>
+                    <button id='toNextBtn' type="button">
+                        Next level!
+                    </button>
+                </div>
+
+            </div>
+
+            <div id='rewardBox'>
+
+            </div>
+
+        </div>
+
     </div>
+
 
     <script src = 'maths.js'></script>
     <script src = 'Tile.js'></script>
