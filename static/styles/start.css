@@ -8,6 +8,14 @@
     font-size: calc(1.5vw + 1vh);
 }
 
+.startPageBtn:hover {
+    border: solid black 3px;
+}
+
+.startPageBtn:active {
+    border: solid black 5px;
+}
+
 .titleDiv {
     height: 25vh;
     display: flex;

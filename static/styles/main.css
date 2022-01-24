@@ -3,97 +3,12 @@ body {
     background-color: #faf0e6;
 }
 
-canvas {
-    opacity: 0.8;
-}
-
 .centredText {
 text-align: center;
-}
-
-#questionForm {
-    display: flex;
-}
-
-#questionDiv {
-    font-size: 38px;
-    min-height: 42px;
-    width: 250px;
-    text-align: right;
-}
-
-#answerInputBox {
-    font-size: 38px;
-    min-height: 42px;
-    width: 120px;
-    margin-left: 10px;
-}
-
-#appendCanvasHere {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px
-}
-
-#answerBtn {
-    font-size: 38px;
-    min-height: 42px;
-    width: 42px;
-    margin-left: 10px;
-}
-
-#toNextBtn {
-    opacity: 0.05;
-    height: 80px;
-    width: 180px;
-    font-size: 30px;
-    border-radius: 10%;
-    border: solid purple 2px;
-    background-color: gold;
-}
-
-#toNextScreen {
-    display: flex;
-    align-items: center;
-    /* border: solid black 1px; */
-}
-
-#bothsides {
-    display: flex;
-}
-
-#rightside {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    /* align-content: flex-start; */
-    justify-content: center;
-}
-
-#leftside {
-    width: 40%;
-    /* display: flex;
-    justify-content: center;
-    flex-direction: column; */
 }
 
 .flex {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
-}
-
-#rewardBox {
-    font-size: 74px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-#levelMessage {
-    font-size: 40px;
-    border: 1px solid black;
-    border-radius: 10%;
-    padding: 15px;
 }
