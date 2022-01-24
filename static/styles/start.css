@@ -1,0 +1,28 @@
+.startPageBtn {
+    width: 20vw;
+    height: 20vh;
+    background-color: green;
+    color: yellow;
+    border: solid black 1px;
+    border-radius: 15%;
+    font-size: calc(1.5vw + 1vh);
+}
+
+.titleDiv {
+    height: 25vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.btnsDiv {
+    height: 50vh;
+    border: solid green 2px;
+    margin: 0px 100px;
+    width: calc(100% - 200px);
+    border-radius: 15%;
+    display: flex; /* (NB: Currently also in 'flex' class on main.css) */
+    flex-wrap: wrap;
+    align-content: center;
+}

@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Start Page</title>
     <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/start.css">
 </head>
 <body>
-    <h1 class='centredText'>Welcome to the Mathematical Minefield!</h1>
-    <button type='button' id='instructionsBtn' class='startPageBtn' onclick='goTo("/instructions")'>How to play!</button>
-    <button type='button' id='playBtn' class='startPageBtn' onclick='goTo("/play")'>Play Now!</button>
-   
+
+    <div class='titleDiv'>
+        <h1 class='centredText'>Welcome to the Mathematical Minefield!</h1>
+    </div>
+
+    <div class='btnsDiv flex'>
+        <button type='button' id='instructionsBtn' class='startPageBtn' onclick='goTo("/instructions")'>How to play!</button>
+        <button type='button' id='playBtn' class='startPageBtn' onclick='goTo("/play")'>Play Now!</button>
+    </div>
+
     <script src = '../javascripts/start.js'></script>
 
 </body>

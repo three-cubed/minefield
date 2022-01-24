@@ -75,7 +75,7 @@ function drawTile(tile, text, fontSize) {
     context.fillStyle = tile.colour;
     context.fillRect(tile.x, tile.y, tile.dimension, tile.dimension);
     // The border of the tile
-    if (tile.index < tiles.length - widthOfBoardInSquares) {
+    if (tile.index < tiles.length) {
         context.strokeStyle = tile.borderColour;
         context.lineWidth = sqrBorderWidth;
         context.strokeRect(tile.x, tile.y, tile.dimension, tile.dimension);
