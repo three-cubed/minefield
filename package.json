@@ -1,0 +1,24 @@
+{
+  "name": "minefield",
+  "version": "1.0.0",
+  "description": "A maths game.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/three-cubed/minefield.git"
+  },
+  "author": "",
+  "license": "CC-BY-NC-4.0",
+  "bugs": {
+    "url": "https://github.com/three-cubed/minefield/issues"
+  },
+  "homepage": "https://github.com/three-cubed/minefield#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.2"
+  }
+}

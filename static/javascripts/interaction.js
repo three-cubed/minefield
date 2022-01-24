@@ -163,6 +163,10 @@ function colourInBorder(tile, colourToUse = tile.borderColour) {
 
 function checkAnswer() {
     if (currentAnswer === null) return;
+    if (answerInputBox.value === '') {
+        answerInputBox.focus();
+        return;
+    }
     let correct;
     if (answerInputBox.value == currentAnswer) correct = true; // needs to be ==, not ===
     // console.log(`checking for answer ${currentAnswer}`);

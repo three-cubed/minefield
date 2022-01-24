@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to play</title>
+    <link rel="stylesheet" href="/styles/instructions.css">
+    <link rel="stylesheet" href="/styles/main.css">
+  </head>
+  <body>
+
+    <div id='titleForInstructions'>How to play Minefield</div>
+
+    <div id='mainBody'></div>
+
+  <script>
+
+      const mainBody = document.getElementById('mainBody');
+      const numberOfInstructions = 9;
+
+      // If you add any more instruction slides, ensure that you increase numberOfInstructions
+      // and that you name them in accordance with the format in the function below.
+      for (let i = 1; i <= numberOfInstructions; i++) {
+
+        const slideDisplayContainer = document.createElement('div');
+        slideDisplayContainer.className = `slideDisplayContainer`;
+        slideDisplayContainer.id = `slideDisplayContainer${i}`;
+        mainBody.appendChild(slideDisplayContainer);
+
+        // console.log(slideDisplayContainer);
+        const slide = document.createElement('img');
+        slide.name = `slide${i}`;
+        slide.className = 'slideDisplay';
+        slide.src = `./instruction_images/instruction_image_${i}.png`;
+        slideDisplayContainer.appendChild(slide);
+      }
+      
+  </script>
+  <style>
+
+      #titleForInstructions {
+          text-align: center; 
+          font-weight: bold;
+          font-size: 7vh;
+      }
+
+      .slideDisplay {
+          width: 666px;
+          max-width: 98%;
+          height: 666px;
+          max-height: 100%;
+          border-radius: 5%;
+          border: solid black 1vh;
+      }
+
+      .slideDisplayContainer {
+          height: calc(33vh + 20vw);
+          margin: 100px 0px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .blueText {
+          color: blue;
+      }
+      
+  </style>
+        
+  </body>
+</html>

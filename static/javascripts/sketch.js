@@ -5,9 +5,9 @@ let startMessage = 'Let\'s go!';
 
 let tiles = [];
 
-let heightOfBoardInSquares = 3; // 6 seems good for development; maybe use 8 for deployment?
-let widthOfBoardInSquares = 5; // 6 seems good for development; maybe use 8 for deployment?
-let dimensionsOfSquaresInPixels = 90; // 90 seems good for development.
+let heightOfBoardInSquares = 7; // 6 seems good for development; maybe use 7 for deployment?
+let widthOfBoardInSquares = 4;
+let dimensionsOfSquaresInPixels = 80; // 90 seems good for development.
 let sqrBorderWidth = 3;
 
 let halfSqr = dimensionsOfSquaresInPixels / 2;
@@ -75,9 +75,11 @@ function drawTile(tile, text, fontSize) {
     context.fillStyle = tile.colour;
     context.fillRect(tile.x, tile.y, tile.dimension, tile.dimension);
     // The border of the tile
-    context.strokeStyle = tile.borderColour;
-    context.lineWidth = sqrBorderWidth;
-    context.strokeRect(tile.x, tile.y, tile.dimension, tile.dimension);
+    if (tile.index < tiles.length - widthOfBoardInSquares) {
+        context.strokeStyle = tile.borderColour;
+        context.lineWidth = sqrBorderWidth;
+        context.strokeRect(tile.x, tile.y, tile.dimension, tile.dimension);
+    }
     // The text on the tile
     let textOffsetX = tile.dimension / 2;
     let textOffsetY = tile.dimension / 2;
