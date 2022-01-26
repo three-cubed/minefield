@@ -29,6 +29,7 @@ if (document.readyState === 'loading') {
 }
 
 function doWhenLoaded() {
+    detectMobileOrNarrow();
     let minefieldCanvas = document.getElementById('minefieldCanvas');
     minefieldCanvas.addEventListener('click', clickFunc);
 

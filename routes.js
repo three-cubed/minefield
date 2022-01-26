@@ -13,4 +13,8 @@ router.get('/instructions', (req, res) => {
     res.render('instructions.ejs');
 })
 
+router.get('/narrow', (req, res) => {
+    res.render('narrow.ejs');
+})
+
 module.exports = router;
