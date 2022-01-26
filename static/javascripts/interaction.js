@@ -3,6 +3,7 @@ let tileWrongColour = 'red';
 let currentTile = null;
 let previousTile = null;
 let currentAnswer = null;
+let awardForThisLevelGiven = false;
 let questionDiv, answerInputBox, toNextBtn;
 
 let emoticonList = [
@@ -95,6 +96,7 @@ function moveTileFocus(tileToFocusOn) {
         questionDiv.innerText = startMessage;
     } else {
         questionDiv.innerText = currentTile.calc[0].replaceAll('*', 'x').replaceAll('/', '÷');
+        // questionDiv.innerText += ' = '
         currentAnswer === null;
     }
     setTileToBeHighlighted(currentTile);
@@ -200,9 +202,10 @@ function doIfComplete(currentTile) {
         // alert('Well done! You\'ve cleared a path through the minefield!');
         toNextBtn.style.opacity = '1';
         toNextBtn.addEventListener('click', clickToNext);
-        // for (let i = 0; i < emoticonList.length; i++){
-        rewardBox.innerHTML += '<span>&ensp;' + emoticonList[generateNumber(0, emoticonList.length - 1)] + '&ensp;</span>';
-        // }
+        if (awardForThisLevelGiven === false) {
+            rewardBox.innerHTML += '<span>&ensp;' + emoticonList[generateNumber(0, emoticonList.length - 1)] + '&ensp;</span>';
+            awardForThisLevelGiven = true;
+        }
     }
 }
 
@@ -212,6 +215,7 @@ function clickToNext() {
     previousTile = null;
     currentAnswer = null;
     level ++;
+    awardForThisLevelGiven = false;
 
     questionDiv.innerText = startMessage;
     minefieldCanvas.remove();
