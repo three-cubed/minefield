@@ -6,10 +6,8 @@ function generate2numbers(min_X, max_X, min_Y, max_Y) {
     return [generateNumber(min_X, max_X), generateNumber(min_Y, max_Y)];
 }
 
-let questions = [];
-
 function generateOperation() {
-    let randomNum = generateNumber(1, 4);
+    const randomNum = generateNumber(1, 4);
     let randomOperation = '+';
     if (randomNum === 2) {
         randomOperation = '-';
@@ -21,10 +19,10 @@ function generateOperation() {
     return randomOperation;
 }
 
-let small = [1, 10];
-let midsized = [11, 99];
-let large = [101, 999];
-let numCombos = [
+const small = [1, 10];
+const midsized = [11, 99];
+const large = [101, 999];
+const numCombos = [
     null,
     [...small, ...small],
     [...midsized, ...small],
@@ -37,13 +35,14 @@ function generateCalc(level, operation) {
     const difficulty = setDifficulty(level);
     if (operation === '+' || operation === '-') {
         return createPlusMinus(operation, ...numCombos[difficulty]);
-    } else if (operation === '*' || operation === '/') {
+    }
+    if (operation === '*' || operation === '/') {
         return createMultDiv(operation, difficulty);
     }
 }
 
 function createMultDiv(operation, difficulty) {
-    let no1, no2, answer;
+    let no1, no2;
     if (difficulty === 1) {
         no1 = generateNumber(1, 6); if (no1 === 6) no1 = 10; no2 = generateNumber(1, 11);
     }
@@ -102,33 +101,33 @@ function createMultDiv(operation, difficulty) {
         no1 *= no2;
     }
 
-    let question = (`${no1} ${operation} ${no2}`);
-    answer = eval(question);
+    const question = (`${no1} ${operation} ${no2}`);
+    const answer = eval(question);
     return [
         question,
         answer
-    ]
+    ];
 }
 
 function createPlusMinus(operation, min_X, max_X, min_Y, max_Y) {
     let [no1, no2] = generate2numbers(min_X, max_X, min_Y, max_Y);
     if (operation === '-' && no1 < no2) {
-        let dummy = no1;
+        const dummy = no1;
         no1 = no2;
         no2 = dummy;
     }
-    let question = (`${no1} ${operation} ${no2}`);
-    let answer = eval(question);
+    const question = (`${no1} ${operation} ${no2}`);
+    const answer = eval(question);
     return [
         question,
         answer
-    ]
+    ];
 }
 
 function setDifficulty(level) {
-    let levelsPerDifficulty = 6;
-    let maxDifficulty = 4;
-    let difficulty = Math.floor((level + levelsPerDifficulty - 1) / levelsPerDifficulty);
+    const levelsPerDifficulty = 6;
+    const maxDifficulty = 4;
+    const difficulty = Math.floor((level + levelsPerDifficulty - 1) / levelsPerDifficulty);
     if (difficulty > maxDifficulty) return maxDifficulty;
     return difficulty;
 }

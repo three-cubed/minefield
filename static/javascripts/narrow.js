@@ -1,1 +1,3 @@
-window.onresize = () => {if (window.innerWidth >= 1000) window.location.href = '/'};
+window.onresize = () => {
+    if (window.innerWidth >= 1000) window.location.href = '/'
+};

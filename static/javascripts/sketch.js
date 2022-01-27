@@ -1,18 +1,18 @@
-let body = document.getElementsByTagName('body')[0];
+const body = document.getElementsByTagName('body')[0];
 let appendCanvasHere, levelMessage;
 let level = 1;
 let startMessage = 'Let\'s go!';
 
-let tiles = [];
+const tiles = [];
 
-let heightOfBoardInSquares = 7; // 6 seems good for development; maybe use 7 for deployment?
-let widthOfBoardInSquares = 4;
-let dimensionsOfSquaresInPixels = 80; // 90 seems good for development.
-let sqrBorderWidth = 3;
+const heightOfBoardInSquares = 7; // 6 seems good for development; maybe use 7 for deployment?
+const widthOfBoardInSquares = 4;
+const dimensionsOfSquaresInPixels = 80; // 90 seems good for development.
+const sqrBorderWidth = 3;
 
-let halfSqr = dimensionsOfSquaresInPixels / 2;
-let heightOfBoardInPixels = heightOfBoardInSquares * dimensionsOfSquaresInPixels;
-let widthOfBoardInPixels = widthOfBoardInSquares * dimensionsOfSquaresInPixels;
+const halfSqr = dimensionsOfSquaresInPixels / 2;
+const heightOfBoardInPixels = heightOfBoardInSquares * dimensionsOfSquaresInPixels;
+const widthOfBoardInPixels = widthOfBoardInSquares * dimensionsOfSquaresInPixels;
 
 function setUpBoard() {
     levelMessage = document.getElementById('levelMessage');
@@ -32,34 +32,27 @@ function setUpBoard() {
     context = minefieldCanvas.getContext('2d'); // context is already 'declared' by canvas.
 
     for (let i = 0; i < (heightOfBoardInSquares * widthOfBoardInSquares); i++) {
-        let newTile = new Tile(x, y, dimensionsOfSquaresInPixels, i);
+        const newTile = new Tile(x, y, dimensionsOfSquaresInPixels, i);
         newTile.calc = generateCalc(level, generateOperation()); // Giving the tile a question
         tiles.push(newTile);
         newTile.rowIsEvenNum = rowIsEvenNum;
         findNeighbours(newTile);
-        x = x + dimensionsOfSquaresInPixels;
+        x += dimensionsOfSquaresInPixels;
         if (x > widthOfBoardInPixels - sqrBorderWidth / 2) {
-            // console.log(`at tile no. ${i}, x >= heightOfBoardInPixels - sqrBorderWidth / 2`);
             rowIsEvenNum = !rowIsEvenNum;
             x = sqrBorderWidth / 2;
             if (rowIsEvenNum === true) x += halfSqr;
             y += dimensionsOfSquaresInPixels;
         }
     }
-
-    // console.log('tiles[0].neighbours' + tiles[0].neighbours);
-
     drawTiles();
     addBufferParag();
-
 }
 
 function drawTiles(borderColourToDraw = '.*', text = null, fontSize = dimensionsOfSquaresInPixels * 0.2) {
-    // console.log(borderColourToDraw);
     let currText = text;
-    let regExp = new RegExp(borderColourToDraw);
-    for (let tile of tiles) {
-        // console.log(tile.index, regExp.test(tile.borderColour) === true);
+    const regExp = new RegExp(borderColourToDraw);
+    for (const tile of tiles) {
         if (regExp.test(tile.borderColour) === true) {
             // if (text === null) currText = `${tile.calc[0].replaceAll('*', 'x').replaceAll('/', '÷')}`;
             if (text === null) currText = `${tile.calc[0].replaceAll('*', 'x')}`;
@@ -81,7 +74,7 @@ function drawTile(tile, text, fontSize) {
         context.strokeRect(tile.x, tile.y, tile.dimension, tile.dimension);
     }
     // The text on the tile
-    let textOffsetX = tile.dimension / 2;
+    const textOffsetX = tile.dimension / 2;
     let textOffsetY = tile.dimension / 2;
     context.font = `${fontSize}px Arial`;
     textOffsetY += fontSize / 2.5;
@@ -91,7 +84,7 @@ function drawTile(tile, text, fontSize) {
 }
 
 function overrideBorderTopAndBottom() {
-        context = minefieldCanvas.getContext('2d');
+    context = minefieldCanvas.getContext('2d');
     context.strokeStyle = tilesColour;
     context.lineWidth = sqrBorderWidth;
     context.beginPath();
@@ -105,7 +98,7 @@ function overrideBorderTopAndBottom() {
 }
 
 function addBufferParag() {
-    let parag = document.createElement('p');
+    const parag = document.createElement('p');
     parag.setAttribute('class', 'buffer');
     body.appendChild(parag);
 }
@@ -125,10 +118,10 @@ function findNeighbours(tile) {
     } else {
         tile.neighbours.unshift(index - widthOfBoardInSquares);
         if (remainder !== 0 && tile.rowIsEvenNum === false) {
-            tile.neighbours.unshift(index - widthOfBoardInSquares - 1)
+            tile.neighbours.unshift(index - widthOfBoardInSquares - 1);
         }
         if (remainder !== widthOfBoardInSquares - 1 && tile.rowIsEvenNum === true) {
-            tile.neighbours.unshift(index - widthOfBoardInSquares + 1)
+            tile.neighbours.unshift(index - widthOfBoardInSquares + 1);
         }
     }
     // Check left
@@ -152,13 +145,12 @@ function findNeighbours(tile) {
     } else {
         tile.neighbours.unshift(index + widthOfBoardInSquares);
         if (remainder !== widthOfBoardInSquares - 1 && tile.rowIsEvenNum === true) {
-            tile.neighbours.unshift(index + widthOfBoardInSquares + 1)
+            tile.neighbours.unshift(index + widthOfBoardInSquares + 1);
         }
         if (remainder !== 0 && tile.rowIsEvenNum === false) {
-            tile.neighbours.unshift(index + widthOfBoardInSquares - 1)
+            tile.neighbours.unshift(index + widthOfBoardInSquares - 1);
         }
     }
-    // console.log(index, remainder, tile.neighbours);
 }
 
 setUpBoard();

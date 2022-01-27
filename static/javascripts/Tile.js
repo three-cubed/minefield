@@ -1,7 +1,6 @@
 tilesColour = 'forestgreen';
 tileBorderColour = 'black'
 
-
 class Tile {
     constructor(x, y, dimension, index) {
         this.x = x;
