@@ -126,8 +126,8 @@ function createPlusMinus(operation, min_X, max_X, min_Y, max_Y) {
 }
 
 function setDifficulty(level) {
-    let levelsPerDifficulty = 4;
-    let maxDifficulty = 5;
+    let levelsPerDifficulty = 6;
+    let maxDifficulty = 4;
     let difficulty = Math.floor((level + levelsPerDifficulty - 1) / levelsPerDifficulty);
     if (difficulty > maxDifficulty) return maxDifficulty;
     return difficulty;
