@@ -3,7 +3,7 @@ function goTo(page){
 }
 
 function detectMobileOrNarrow() {
-    if (window.innerWidth < 1000) goTo('/narrow');
+    if (window.innerWidth < 1000) goTo('/narrow'); // Use 1000 for deployment
 }
 
 detectMobileOrNarrow();

@@ -40,19 +40,23 @@ function doWhenLoaded() {
     questionDiv.innerText = startMessage;
 
     answerInputBox = document.getElementById('answerInputBox');
-    // answerInputBox.addEventListener('keyup', checkAnswer);
+    answerInputBox.value = '';
+
     answerBtn = document.getElementById('answerBtn');
     answerBtn.addEventListener('click', (event) => {
         event.preventDefault();
         checkAnswer();
     });
 
-    body.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowUp' && currentTile.index >= widthOfBoardInSquares) moveTileFocus(tiles[currentTile.index - widthOfBoardInSquares]);
-        if (event.key === 'ArrowLeft' && currentTile.index > 0) moveTileFocus(tiles[currentTile.index - 1]);
-        if (event.key === 'ArrowRight' && currentTile.index < tiles.length - 1) moveTileFocus(tiles[currentTile.index + 1]);
-        if (event.key === 'ArrowDown' && currentTile.index < tiles.length - widthOfBoardInSquares) moveTileFocus(tiles[currentTile.index + widthOfBoardInSquares]);
-    });
+    if (body.dataset.keydownListener === 'false') { // This 'if clause' prevents a new event listener being added every level.
+        body.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowUp' && currentTile.index >= widthOfBoardInSquares) moveTileFocus(tiles[currentTile.index - widthOfBoardInSquares]);
+            if (event.key === 'ArrowLeft' && currentTile.index > 0) moveTileFocus(tiles[currentTile.index - 1]);
+            if (event.key === 'ArrowRight' && currentTile.index < tiles.length - 1) moveTileFocus(tiles[currentTile.index + 1]);
+            if (event.key === 'ArrowDown' && currentTile.index < tiles.length - widthOfBoardInSquares) moveTileFocus(tiles[currentTile.index + widthOfBoardInSquares]);
+        });
+        body.dataset.keydownListener = 'true';
+    }
 }
 
 function clickFunc(event) {
@@ -186,7 +190,9 @@ function doIfComplete(currentTile) {
     if (currentTile.index < widthOfBoardInSquares) {
         // alert('Well done! You\'ve cleared a path through the minefield!');
         toNextBtn.style.opacity = '1';
-        toNextBtn.addEventListener('click', clickToNext);
+        toNextBtn.addEventListener('click', goToNextLevel());
+        // Note that using goToNextLevel, without brackets, in the event listener above leads to [object PointerEvent] passed as argument
+        // which will cause goToNextLevel() to malfunction now that changeOfLevel has been introduced as a parameter.
         if (awardForThisLevelGiven === false) {
             rewardBox.innerHTML += '<span>&ensp;' + emoticonList[generateNumber(0, emoticonList.length - 1)] + '&ensp;</span>';
             awardForThisLevelGiven = true;
@@ -194,11 +200,11 @@ function doIfComplete(currentTile) {
     }
 }
 
-function clickToNext() {
+function goToNextLevel(changeOfLevel = 1) {
     tiles = [];
     currentTile = null;
     currentAnswer = null;
-    level++;
+    level += changeOfLevel;
     awardForThisLevelGiven = false;
 
     questionDiv.innerText = startMessage;
@@ -208,5 +214,5 @@ function clickToNext() {
     answerInputBox.value = '';
 
     toNextBtn.style.opacity = '0.05';
-    toNextBtn.removeEventListener('click', clickToNext);
+    toNextBtn.removeEventListener('click', goToNextLevel); // Here must use no brackets after removeEventListener.
 }

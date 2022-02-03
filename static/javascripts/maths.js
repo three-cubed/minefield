@@ -7,13 +7,13 @@ function generate2numbers(min_X, max_X, min_Y, max_Y) {
 }
 
 function generateOperation() {
-    const randomNum = generateNumber(1, 4);
-    let randomOperation = '+';
-    if (randomNum === 2) {
-        randomOperation = '-';
-    } else if (randomNum === 3) {
-        randomOperation = '*';
+    const randomNum = generateNumber(1, 5);
+    let randomOperation = '*'; // 2 in 5 chance of a question being multiplication.
+    if (randomNum === 3) {
+        randomOperation = '+';
     } else if (randomNum === 4) {
+        randomOperation = '-';
+    } else if (randomNum === 5) {
         randomOperation = '/';
     }
     return randomOperation;

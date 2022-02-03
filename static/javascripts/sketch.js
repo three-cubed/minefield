@@ -3,7 +3,7 @@ let appendCanvasHere, levelMessage;
 let level = 1;
 let startMessage = 'Let\'s go!';
 
-const tiles = [];
+let tiles = [];
 
 const heightOfBoardInSquares = 7; // 6 seems good for development; maybe use 7 for deployment?
 const widthOfBoardInSquares = 4;
