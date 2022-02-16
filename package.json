@@ -12,7 +12,7 @@
     "url": "git+https://github.com/three-cubed/minefield.git"
   },
   "author": "three-cubed",
-  "license": "CC-BY-NC-4.0",
+  "license": "CC-BY-NC-ND 4.0",
   "bugs": {
     "url": "https://github.com/three-cubed/minefield/issues"
   },

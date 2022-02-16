@@ -8,7 +8,7 @@
 
 You are free to use, share, copy and redistribute the material, under the terms of the following licence:
 
-Attribution - Non Commercial 4.0 International (CC BY-NC 4.0).
+Attribution - Non Commercial No Derivatives 4.0 International (CC BY-NC-ND 4.0).
 
 You may not make unauthorised changes to the material.
 You may not use the material for commercial purposes.
