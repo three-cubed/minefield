@@ -1,5 +1,5 @@
-function goTo(page){
-    window.location.href = page; 
+function goTo(page) {
+    window.location.href = page;
 }
 
 function detectMobileOrNarrow() {

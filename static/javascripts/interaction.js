@@ -1,7 +1,6 @@
 const tileBorderHighlightColour = 'yellow';
 const tileWrongColour = 'red';
 let currentTile = null;
-let previousTile = null;
 let currentAnswer = null;
 let awardForThisLevelGiven = false;
 let questionDiv, answerInputBox, toNextBtn;
@@ -85,7 +84,6 @@ function moveTileFocus(tileToFocusOn) {
         return;
     }
 
-    previousTile = currentTile;
     currentTile = tileToFocusOn;
 
     questionForm.reset();

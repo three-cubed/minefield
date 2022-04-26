@@ -1,5 +1,5 @@
 tilesColour = 'forestgreen';
-tileBorderColour = 'black'
+tileBorderColour = 'black';
 
 class Tile {
     constructor(x, y, dimension, index) {

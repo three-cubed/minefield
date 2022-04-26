@@ -1,7 +1,7 @@
 const body = document.getElementsByTagName('body')[0];
 let appendCanvasHere, levelMessage;
 let level = 1;
-let startMessage = 'Let\'s go!';
+let startMessage = 'Let\'s go!'; // This will be used by interaction.js
 
 let tiles = [];
 

@@ -6,7 +6,7 @@ function generate2numbers(min_X, max_X, min_Y, max_Y) {
     return [generateNumber(min_X, max_X), generateNumber(min_Y, max_Y)];
 }
 
-function generateOperation() {
+function generateOperation() { // This function is used in sketch.js
     const randomNum = generateNumber(1, 5);
     let randomOperation = '*'; // 2 in 5 chance of a question being multiplication.
     if (randomNum === 3) {
@@ -31,7 +31,7 @@ const numCombos = [
     [...large, ...large]
 ];
 
-function generateCalc(level, operation) {
+function generateCalc(level, operation) { // This function is used in sketch.js
     const difficulty = setDifficulty(level);
     if (operation === '+' || operation === '-') {
         return createPlusMinus(operation, ...numCombos[difficulty]);
