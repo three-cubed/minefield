@@ -5,9 +5,9 @@ let startMessage = 'Let\'s go!'; // This will be used by interaction.js
 
 let tiles = [];
 
-const heightOfBoardInSquares = 7; // 6 seems good for development; maybe use 7 for deployment?
+const heightOfBoardInSquares = 7;
 const widthOfBoardInSquares = 4;
-const dimensionsOfSquaresInPixels = 80; // 90 seems good for development.
+const dimensionsOfSquaresInPixels = 80;
 const sqrBorderWidth = 3;
 
 const halfSqr = dimensionsOfSquaresInPixels / 2;
@@ -114,7 +114,7 @@ function findNeighbours(tile) {
     // Check above
     if (index < widthOfBoardInSquares) {
         tile.neighbours.push('none above');
-        // tile.colour = 'purple';
+        // tile.colour = 'purple'; // for development and testing
     } else {
         tile.neighbours.unshift(index - widthOfBoardInSquares);
         if (remainder !== 0 && tile.rowIsEvenNum === false) {
@@ -127,21 +127,21 @@ function findNeighbours(tile) {
     // Check left
     if (remainder === 0) {
         tile.neighbours.push('none to left');
-        // tile.colour = 'yellow';
+        // tile.colour = 'yellow'; // for development and testing
     } else {
         tile.neighbours.unshift(index - 1);
     }
     // Check right
     if (remainder === widthOfBoardInSquares - 1) {
         tile.neighbours.push('none to right');
-        // tile.colour = 'gold';
+        // tile.colour = 'gold'; // for development and testing
     } else {
         tile.neighbours.unshift(index + 1);
     }
     // Check below
     if (index >= ((heightOfBoardInSquares * widthOfBoardInSquares) - widthOfBoardInSquares)) {
         tile.neighbours.push('none below');
-        // tile.colour = 'antiquewhite';
+        // tile.colour = 'antiquewhite'; // for development and testing
     } else {
         tile.neighbours.unshift(index + widthOfBoardInSquares);
         if (remainder !== widthOfBoardInSquares - 1 && tile.rowIsEvenNum === true) {

@@ -186,7 +186,7 @@ function updateTiles() {
 
 function doIfComplete(currentTile) {
     if (currentTile.index < widthOfBoardInSquares) {
-        // alert('Well done! You\'ve cleared a path through the minefield!');
+        // alert('Well done! You\'ve cleared a path through the minefield!'); // optional!
         toNextBtn.style.opacity = '1';
         toNextBtn.addEventListener('click', goToNextLevel());
         // Note that using goToNextLevel, without brackets, in the event listener above leads to [object PointerEvent] passed as argument
@@ -212,5 +212,5 @@ function goToNextLevel(changeOfLevel = 1) {
     answerInputBox.value = '';
 
     toNextBtn.style.opacity = '0.05';
-    toNextBtn.removeEventListener('click', goToNextLevel); // Here must use no brackets after removeEventListener.
+    toNextBtn.removeEventListener('click', goToNextLevel); // Here must use no brackets after removeEventListener for goToNextLevel.
 }
