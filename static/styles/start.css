@@ -17,9 +17,9 @@
 }
 
 .titleDiv {
-    height: 25vh;
+    height: 26vh;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     align-content: center;
     justify-content: center;
 }
@@ -33,4 +33,13 @@
     display: flex; /* (NB: Currently also in 'flex' class on main.css) */
     flex-wrap: wrap;
     align-content: center;
+}
+
+#attributionFragment {
+    font-size: 14px;
+    font-family: cursive;
+    text-align: center;
+    font-weight: 900;
+    position: relative;
+    top: -18px;
 }
