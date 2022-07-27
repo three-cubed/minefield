@@ -1,6 +1,6 @@
 **A primary school maths game using HTML canvas, JS and EJS.**
 
-**Go to the instructions page to learn how to play!**
+**Start it up, and then go to the instruction page to learn how to play!**
 
 <br><br>
 
