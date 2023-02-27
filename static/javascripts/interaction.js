@@ -33,7 +33,7 @@ function doWhenLoaded() {
     minefieldCanvas.addEventListener('click', clickFunc);
 
     questionForm = document.getElementById('questionForm');
-    toNextBtn = document.getElementById('toNextBtn');
+    // toNextBtn = document.getElementById('toNextBtn');
 
     questionDiv = document.getElementById('questionDiv');
     questionDiv.innerText = startMessage;
@@ -187,10 +187,7 @@ function updateTiles() {
 function doIfComplete(currentTile) {
     if (currentTile.index < widthOfBoardInSquares) {
         // alert('Well done! You\'ve cleared a path through the minefield!'); // optional!
-        toNextBtn.style.opacity = '1';
-        toNextBtn.addEventListener('click', goToNextLevel());
-        // Note that using goToNextLevel, without brackets, in the event listener above leads to [object PointerEvent] passed as argument
-        // which will cause goToNextLevel() to malfunction now that changeOfLevel has been introduced as a parameter.
+        goToNextLevel();
         if (awardForThisLevelGiven === false) {
             rewardBox.innerHTML += '<span>&ensp;' + emoticonList[generateNumber(0, emoticonList.length - 1)] + '&ensp;</span>';
             awardForThisLevelGiven = true;
@@ -199,6 +196,7 @@ function doIfComplete(currentTile) {
 }
 
 function goToNextLevel(changeOfLevel = 1) {
+    console.log('goToNextLevel initiated');
     tiles = [];
     currentTile = null;
     currentAnswer = null;
@@ -210,7 +208,4 @@ function goToNextLevel(changeOfLevel = 1) {
     setUpBoard();
     doWhenLoaded();
     answerInputBox.value = '';
-
-    toNextBtn.style.opacity = '0.05';
-    toNextBtn.removeEventListener('click', goToNextLevel); // Here must use no brackets after removeEventListener for goToNextLevel.
 }
